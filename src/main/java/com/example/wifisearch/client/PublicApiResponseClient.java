@@ -16,6 +16,10 @@ public class PublicApiResponseClient {
         return getResponseEntity(start, end); // 내부에서 getResponseEntity() 메소드를 호출하여 ResponseEntity 반
     }
     
+    public int getApiTotalCount() { // 공공 api 데이터 개수를 반환하는 메소드
+        return getResponseEntity(0, 1).getTotalCount();
+    }
+    
     private ResponseEntity getResponseEntity(int start, int end) {
         // okhttp를 이용하여 request 요청 및 reponse 리턴
         try {
