@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PublicApiResponseClientTest {
     
     @Test
-    @DisplayName("실제 요청테스트) 공공api에 올바른 형식의 url을 get 요청을 했을 때 ResponseEntity에 파싱되어 반환되는 결과를 확인")
+    @DisplayName("실제 요청테스트) 공공api에 get 요청 시 정상 작동되는지 결과코드를 확인")
     void getPublicWifiList() {
         PublicApiResponseClient publicApiResponseClient = new PublicApiResponseClient();
         
@@ -23,6 +23,7 @@ class PublicApiResponseClientTest {
     }
     
     @Test
+    @DisplayName("정상 작동 후 가져온 전체 데이터 개수가 Api 홈페이지에 명시된 것과 일치하는지 확인")
     void getApiTotalCount() {
         PublicApiResponseClient publicApiResponseClient = new PublicApiResponseClient();
         
