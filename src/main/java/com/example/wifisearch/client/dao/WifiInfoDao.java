@@ -11,13 +11,15 @@ public class WifiInfoDao {
     private static final String TABLE_NAME = "PUBLIC_WIFI_INFO"; // 연결할 테이블
     private static final int MAX_BATCH_CONTENT = 1000; //
     
-    public void save(List<WifiInfoDto> publicWifiList) {
+    public long save(List<WifiInfoDto> publicWifiList) {
         Connection connection = ConnectionProvider.getConnection();
+        
         // 입력받은 와이파이 객체 리스트를 stream을 이용하여 각각 createInsertQuery에 넣어서 리턴받은 String 값을 queries에 저장
         List<String> queries = publicWifiList.stream()
                 .map(this::createInsertQuery)
                 // createInsertQuery
                 .collect(Collectors.toList());
+        
         //work batch
         try (Statement statement = connection.createStatement()) {
             // Statement : 단일 ResultSet 개체를 반환하는 지정된 SQL 문을 실행
@@ -29,7 +31,7 @@ public class WifiInfoDao {
                     statement.executeBatch(); // 이 문 개체를 만든 연결 개체를 검색
                 }
             }
-            statement.executeBatch();
+            return statement.executeBatch().length;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {
